@@ -25,6 +25,7 @@ services:
       MONGO_DATABASE: accounts
       MONGO_USER: root
       MONGO_PASSWORD: pass
+      SIGNING_KEY: KcToU9kvT68n3u40ocXqPk2KwQGhxDGZdz92AgjWPN0
       # WAIT_HOSTS: mongo:27017
 
   favorites:
@@ -36,9 +37,12 @@ services:
     volumes:
       - ./favorites:/app
     environment:
-      DATABASE_URL: mongodb://root:pass@mongo
-      DATABASE_NAME: mongo
-      WAIT_HOSTS: mongo:27017
+      DATABASE_URL: mongodb://root:pass@mongo/favorites
+      MONGOHOST: mongo
+      MONGODATABASE: favorites
+      MONGOUSER: root
+      MONGOPASSWORD: pass
+      SIGNING_KEY: KcToU9kvT68n3u40ocXqPk2KwQGhxDGZdz92AgjWPN0
 
   watchlists:
     build:
@@ -49,7 +53,7 @@ services:
     volumes:
       - ./watchlists:/app
     environment:
-      DATABASE_URL: mongodb://root:pass@mongo
+      DATABASE_URL: mongodb://root:pass@mongo/watchlists
       DATABASE_NAME: mongo
       WAIT_HOSTS: mongo:27017
 
@@ -81,4 +85,4 @@ services:
       PUBLIC_URL: http://localhost:3000
       REACT_APP_ACCOUNTS: http://localhost:8080
       # REACT_APP_WATCHLIST: http://localhost:8070
-      # REACT_APP_FAVORITES: http://localhost:8090
+      REACT_APP_FAVORITES: http://localhost:8090

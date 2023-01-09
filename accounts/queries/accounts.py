@@ -21,3 +21,9 @@ class AccountQueries:
         result = db.accounts.find_one({ "_id": ObjectId(id) })
         result['id'] = str(result['_id'])
         return result
+
+    def get_account_by_username(self, username):
+        db = client[mongodb]
+        result = db.accounts.find_one({ "username": username })
+        result['id'] = str(result['_id'])
+        return result

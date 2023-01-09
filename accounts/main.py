@@ -3,9 +3,12 @@ from fastapi.middleware.cors import CORSMiddleware
 import os
 # from queries.accounts import AccountQueries
 # from pydantic import BaseModel
-from routers import accounts
+from routers import accounts, auth
+
 
 app = FastAPI()
+app.include_router(auth.authenticator.router)
+app.include_router(accounts.router)
 
 app.add_middleware(
     CORSMiddleware,
@@ -17,8 +20,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# app.include_router(auth.authenticator.router)
-app.include_router(accounts.router)
+
 
 # class AccountIn(BaseModel):
 #     email: str
