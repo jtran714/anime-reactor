@@ -23,6 +23,7 @@ services:
       DATABASE_URL: mongodb://root:pass@mongo
       DATABASE_NAME: mongo
       WAIT_HOSTS: mongo:27017
+      SIGNING_KEY: randomkey
 
   favorites:
     build:
@@ -46,9 +47,13 @@ services:
     volumes:
       - ./watchlists:/app
     environment:
-      DATABASE_URL: mongodb://root:pass@mongo
-      DATABASE_NAME: mongo
-      WAIT_HOSTS: mongo:27017
+      DATABASE_URL: mongodb://root:pass@mongo/watchlists
+      MONGOHOST: mongo
+      DATABASE: watchlists
+      MONGOUSER: root
+      MONGOPASSWORD: pass
+      SIGNING_KEY: randomkey
+      # WAIT_HOSTS: mongo:27017
 
   mongo-express:
     image: mongo-express:latest
@@ -77,5 +82,5 @@ services:
       REACT_APP_SAMPLE_SERVICE: http://localhost:8000
       PUBLIC_URL: http://localhost:3000
       # REACT_APP_ACCOUNTS: http://localhost:8080
-      # REACT_APP_WATCHLIST: http://localhost:8070
+      REACT_APP_WATCHLISTS: http://localhost:8070
       # REACT_APP_FAVORITES: http://localhost:8090

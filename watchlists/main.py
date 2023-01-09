@@ -1,8 +1,10 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import os
+from routers.watchlists import router
 
 app = FastAPI()
+app.include_router(router)
 
 app.add_middleware(
     CORSMiddleware,
@@ -19,8 +21,8 @@ app.add_middleware(
 def launch_details():
     return {
         "launch_details": {
-            "year": 2022,
-            "month": 12,
+            "year": 2023,
+            "month": 3,
             "day": "9",
             "hour": 19,
             "min": 0,
