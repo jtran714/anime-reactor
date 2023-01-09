@@ -21,8 +21,8 @@ The whole team works together on applying the docker configuration.
 We discuss about the organization of our collection and database again to clarify how to build the functionality.
 Jess and Jordan contributed a lot and we eventually conclude 2 databases and 3 collections.
 
-> **Account** - users data
-> **Anime** - favorites data, watch lists data
+> **Account** - users data  <br>
+> **Anime** - favorites data, watch lists data  <br>
 
 We generally set up the docker-compose function and we are able to connect to the FastAPI docs page.
 Finish the issue for another feature.
@@ -33,12 +33,13 @@ Discuss and clarify the requirement of issues around 5 PM. Need to update the is
 1. Update the issue:
     - [x] Change “Description” to “Acceptance Criteria“.
     - [x] Add “Linked items” to organize linked issues.
-
+<br>
 
 #### Date: 2023-01-06
 - Focus on coding: Docker and MongoDB were generally ready. We start working on coding part.
 To facilitate the coding express, each of us working on assigned feature, and work together when encounter issues.
 We set up each feature separately, and we will work together when we are going to link different data/database.
+<br>
 
 #### Date: 2023-01-08
 - (Holiday) Individually work on the watchlist feature. Setup the GET, POST requests. Issue updated.
@@ -46,3 +47,4 @@ We set up each feature separately, and we will work together when we are going t
 1. Authentication
     - [ ] Check with the team about the SIGNING_KEY name and key
     - [ ] Check-about AccountIn, AccountOut, Account models. Location of Authenticator
+<br>
