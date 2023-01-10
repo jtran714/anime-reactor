@@ -39,3 +39,24 @@ def get_watchlists(
     account: dict = Depends(authenticator.get_current_account_data),
 ):
     return watchlist_quaries.get_watchlist_by_id(id)
+
+# update not ready
+@router.put('/api/watchlists/{id}', response_model=Union[WatchlistOut, ErrorMsg])
+def update_watchlist(
+    id: str,
+    new_watchlist : WatchlistIn,
+    watchlist_quaries: WatchlistQueries = Depends(),
+    account: dict = Depends(authenticator.get_current_account_data),
+):
+    return watchlist_quaries.update_watchlist(watchlist_quaries,new_watchlist)
+
+# delete not ready
+@router.delete('/api/watchlists/{id}')
+def delete_watchlist(
+    id: str,
+    watchlist_quaries: WatchlistQueries = Depends(),
+    account: dict = Depends(authenticator.get_current_account_data),
+):
+    return {
+    "Selected watchlist is deleted": True
+}

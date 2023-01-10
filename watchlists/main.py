@@ -2,8 +2,10 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import os
 from routers.watchlists import router
+from authenticator import authenticator
 
 app = FastAPI()
+app.include_router(authenticator.router)
 app.include_router(router)
 
 app.add_middleware(
