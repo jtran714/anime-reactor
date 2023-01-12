@@ -45,6 +45,23 @@ We set up each feature separately, and we will work together when we are going t
 - (Holiday) Individually work on the watchlist feature. Setup the GET, POST requests. Issue updated.
 - To do:
 1. Authentication
-    - [ ] Check with the team about the SIGNING_KEY name and key
-    - [ ] Check-about AccountIn, AccountOut, Account models. Location of Authenticator
+    - [x] Check with the team about the SIGNING_KEY name and key
+    - [x] Check about AccountIn, AccountOut, Account models. Location of Authenticator
 <br>
+
+#### Date: 2023-01-09
+- Focus on coding: Discuss with instructor about setting database. According to the
+For the watchlist feature, general function works, but still working on adjusting the authentication part.
+Try to set up accounts setting to test if the authentication.
+Account are set up in it's own service with model file in the service folder. Try to import those as setting.
+Still have issue with login, might not get the correct data from the account info.
+<br>
+
+#### Date: 2023-01-10
+- Focus on coding: Apply the changes on database.
+We have decided to move the favorite and watchlist together in the anime database. Apply changes and check how to work together.
+Since we have clarified the relatinoship as one to many, each account may leads to multiple watchlists/favorites. Need to adjust the router and queries.
+
+1. To-do
+    - [] Add owner property on queries
+    - [] Check how to use info delivered by account/ token

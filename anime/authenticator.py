@@ -1,6 +1,6 @@
 # authenticator.py
 import os
-from fastapi import Depends
+from datetime import timedelta
 from jwtdown_fastapi.authentication import Authenticator
 
 
@@ -24,12 +24,15 @@ class MyAuthenticator(Authenticator):
     def get_hashed_password(self, account):
         # Return the encrypted password value from your
         # account object
-        return account.hashed_password
+        # return account.hashed_password
+        pass
 
     def get_account_data_for_cookie(self, account):
         # Return the username and the data for the cookie.
         # You must return TWO values from this method.
         return account.username, account
 
+# two_hours = timedelta(hours=2)
 
 authenticator = MyAuthenticator(os.environ["SIGNING_KEY"])
+# authenticator = MyAuthenticator(os.environ["SIGNING_KEY"],exp=two_hours,)
