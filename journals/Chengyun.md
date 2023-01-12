@@ -70,7 +70,7 @@ Since we have clarified the relationship as one to many, each account may leads 
   [x] Add owner property on queries
   [x] Check how to use info delivered by account/ token
 
-  #### Date: 2023-01-10
+  #### Date: 2023-01-11
   - Focus on coding: Applying the lecture of authentication.
   Followed advices, we re-built all container and tried the code introduced in the lecture.
   Jess, Jordan and I have been trying to apply the code and adjust the database setup to the demo.
