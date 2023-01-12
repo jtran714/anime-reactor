@@ -7,8 +7,7 @@ from routers import accounts, auth
 
 
 app = FastAPI()
-app.include_router(auth.authenticator.router)
-app.include_router(accounts.router)
+
 
 app.add_middleware(
     CORSMiddleware,
@@ -20,6 +19,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+app.include_router(auth.authenticator.router)
+app.include_router(accounts.router)
 
 
 # class AccountIn(BaseModel):

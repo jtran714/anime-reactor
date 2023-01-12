@@ -6,13 +6,15 @@ from typing import Optional
 
 router = APIRouter()
 
-@router.post("/favorites", response_model=FavoriteOut)
+@router.post("/favorites", response_model=FavoriteIn)
 def create_favorite(
     favorite: FavoriteIn,
     favorite_queries: FavoriteQueries = Depends(),
-    account: dict = Depends(authenticator.get_current_account_data),
+    account: dict = Depends(authenticator.get_current_account_data)
 ):
-    return favorite_queries.create_favorite(favorite, account["id"])
+    if account['id'] is not None:
+        return favorite_queries.create_favorite(favorite)
+
 
 
 @router.get("/favorites", response_model=FavoriteOut)

@@ -60,3 +60,15 @@ Today, I worked on:
 - Mainly trying to help Jordan debug his issue with Auth.
 
 Because we have our project set up using two databases, we are not quite sure how to link the databases. I am able to create a user and login to grab a token. However, when I try to use the token in Jordan's service to create a favorites item, the item is created successfully (as shown in MongoExpress), but the terminal throws an error. We have looked through the documentations but were not successful in solving the bug. We also discussed that James had set up to volumes for his separate services and two MongoExpress in his Yaml file. AS MongoExpress is just an admin interface, we are confused why there needs to be two different ones. We will verify with the teachers tomorrow. But as of right now, very happy that the backend for accounts is basically done!
+
+## January 9, 2022
+
+Today, I worked on:
+
+- Consulting with Andrew on organization of our database
+- Walking Tommy through my code
+- Reorganizing directories and finalized Docker
+
+I did not do much coding today. Instead, I finalized some concepts with my group. After discussing with Andrew, it seems like the only option we have right now is to have two separate databases, and we need to figure out how to link them. This is currently our biggest blocker.
+Since Tommy is working on accounts with me, (I had already set up the backend for sign up, login, and signout, including JWT Auth), I walked him through my code so that he could start working on back ends for the PUT request. Jordan and I also combined favorites and watchlist into a single directory, since they will be two collections within the same database. Then we, rebuilt our containers and made sure they worked.
+Later tonight, I walked Chengyun through how he could test his code using the JWT implementation that I wrote. I showed him how to create an account, login with those credentials, and grab the token generated at login. And finally, I completed the redux exploration, but it feels like a scratch on the surface.
