@@ -9,7 +9,7 @@ function App() {
 
   useEffect(() => {
     async function getData() {
-      let url = `${process.env.REACT_APP_ACCOUNTS}/api/launch-details`;
+      let url = `${process.env.REACT_APP_SAMPLE_SERVICE}/api/launch-details`;
       console.log("fastapi url: ", url);
       let response = await fetch(url);
       console.log("------- hello? -------");

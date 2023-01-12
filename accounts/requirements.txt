@@ -1,5 +1,4 @@
 fastapi[all]==0.81.0
 uvicorn[standard]==0.17.6
-pymongo==4.1.1
-pytest
+psycopg[binary,pool]==3.0.7
 jwtdown-fastapi==0.4.0

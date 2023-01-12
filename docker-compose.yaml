@@ -1,73 +1,71 @@
 volumes:
-  mongo-data:
+  postgres-data:
+    external: true
+  pg-admin:
     external: true
 
 services:
-  mongo:
-    image: mongo:5
+  pg-admin:
+    image: dpage/pgadmin4
     volumes:
-      - mongo-data:/data/db
+      - pg-admin:/var/lib/pgadmin
+    ports:
+      - 8082:80
     environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: pass
+      PGADMIN_DEFAULT_EMAIL: anime@email.com
+      PGADMIN_DEFAULT_PASSWORD: pass
+      PGADMIN_DISABLE_POSTFIX: 1
+
+  postgres:
+    build:
+      context: ./relational-data
+      dockerfile: ./Dockerfile.dev
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_MULTIPLE_DATABASES: accounts, favorites, watchlists
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: pass
+    ports:
+      - 15432:5432
 
   accounts:
     build:
-      context: accounts
-      dockerfile: Dockerfile.dev
+      context: ./accounts
+      dockerfile: ./Dockerfile.dev
     ports:
-      - "8080:8000"
+      - "8000:8000"
     volumes:
       - ./accounts:/app
     environment:
-      DATABASE_URL: mongodb://root:pass@mongo/accounts
-      MONGO_HOST: mongo
-      MONGO_DATABASE: accounts
-      MONGO_USER: root
-      MONGO_PASSWORD: pass
-      SIGNING_KEY: KcToU9kvT68n3u40ocXqPk2KwQGhxDGZdz92AgjWPN0
-      # WAIT_HOSTS: mongo:27017
+      DATABASE_URL: postgresql://accounts:password@postgres/accounts
+      WAIT_HOSTS:
+        postgres:5432
+        # SIGNING_KEY: ${SIGNING_KEY}
 
   favorites:
     build:
-      context: favorites
-      dockerfile: Dockerfile.dev
+      context: ./favorites
+      dockerfile: ./Dockerfile.dev
     ports:
       - "8090:8000"
     volumes:
       - ./favorites:/app
     environment:
-      DATABASE_URL: mongodb://root:pass@mongo/favorites
-      MONGOHOST: mongo
-      MONGODATABASE: favorites
-      MONGOUSER: root
-      MONGOPASSWORD: pass
-      SIGNING_KEY: KcToU9kvT68n3u40ocXqPk2KwQGhxDGZdz92AgjWPN0
+      DATABASE_URL: postgresql://favorites:password@postgres/favorites
+      WAIT_HOSTS: postgres:5432
 
   watchlists:
     build:
-      context: watchlists
-      dockerfile: Dockerfile.dev
+      context: ./watchlists
+      dockerfile: ./Dockerfile.dev
     ports:
-      - "8070:8000"
+      - "8080:8000"
     volumes:
       - ./watchlists:/app
     environment:
-      DATABASE_URL: mongodb://root:pass@mongo/watchlists
-      DATABASE_NAME: mongo
-      WAIT_HOSTS: mongo:27017
-
-  mongo-express:
-    image: mongo-express:latest
-    depends_on:
-      - mongo
-    ports:
-      - "8081:8081"
-    environment:
-      ME_CONFIG_MONGODB_ADMINUSERNAME: root
-      ME_CONFIG_MONGODB_ADMINPASSWORD: pass
-      ME_CONFIG_MONGODB_URL: mongodb://root:pass@mongo:27017/
-    restart: always
+      DATABASE_URL: postgresql://watchlists:password@postgres/watchlists
+      WAIT_HOSTS: postgres:5432
 
   ghi:
     image: node:lts-bullseye
@@ -81,8 +79,7 @@ services:
       HOST_OS: ${OS}
       NODE_ENV: development
       HOST: "0.0.0.0"
-      REACT_APP_SAMPLE_SERVICE: http://localhost:8000
       PUBLIC_URL: http://localhost:3000
-      REACT_APP_ACCOUNTS: http://localhost:8080
-      # REACT_APP_WATCHLIST: http://localhost:8070
-      REACT_APP_FAVORITES: http://localhost:8090
+      REACT_APP_ACCOUNTS_API_HOST: http://localhost:8000
+      REACT_APP_FAVORITES_API_HOST: http://localhost:8090
+      REACT_APP_WATCHLISTS_API_HOST: http://localhost:8080
