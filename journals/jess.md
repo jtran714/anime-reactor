@@ -72,3 +72,19 @@ Today, I worked on:
 I did not do much coding today. Instead, I finalized some concepts with my group. After discussing with Andrew, it seems like the only option we have right now is to have two separate databases, and we need to figure out how to link them. This is currently our biggest blocker.
 Since Tommy is working on accounts with me, (I had already set up the backend for sign up, login, and signout, including JWT Auth), I walked him through my code so that he could start working on back ends for the PUT request. Jordan and I also combined favorites and watchlist into a single directory, since they will be two collections within the same database. Then we, rebuilt our containers and made sure they worked.
 Later tonight, I walked Chengyun through how he could test his code using the JWT implementation that I wrote. I showed him how to create an account, login with those credentials, and grab the token generated at login. And finally, I completed the redux exploration, but it feels like a scratch on the surface.
+
+## January 10, 2022
+
+Today, I worked on:
+
+- Debugging with Chengyun and Jordan to link databases.
+
+Unfortunately, we are still unable to link our databases together. I am able to successfully create a user and login. When I log in, a token is generated. We tried adding a user_id field to the favorites model and try to add the user id in that field when we create a new favorites item, but that did not work. We noticed that we were able to create a favorites item regardless of whether we used an existing user id, so that means that the databases weren't linked up. No Ah-Ha moments. It's day 5 on the same bug, and the instructors/SEIRs are not of much help on MongoDB, unfortunately. We are considering switching to Postgresql.
+
+## January 10, 2022
+
+Today, I worked on:
+
+- Debugging with Chengyun and Jordan to link databases.
+
+Day 6 on the same bug. It was like a ray of sunshine when the instructor went over how to link Mongo databases in class today and shared his code for reference. The three of us got together after lunch and started to analyze the reference code and eventually changed our code to the same format. However, we kept getting an error when we tried to make a post request to create a user. Five hours into it, and we didn't even think to test the repo that we were using as a reference. We ran that project to test it, and turns out the post request for that project returns a 500 error. At this point, my team is exhausted and devastated, and we have decided to scrap our entire project and start fresh with postgres. We only have roughly two weeks left, and we can't spare another day on this. It's very disappointing that the SEIRs and instructors were unable to help us resolve this issue and that this was the only solution. The biggest Ah-ha moment was finding out that Andrew's lecture code doesn't work!
