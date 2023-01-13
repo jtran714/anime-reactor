@@ -23,9 +23,9 @@ services:
     volumes:
       - postgres-data:/var/lib/postgresql/data
     environment:
-      POSTGRES_MULTIPLE_DATABASES: accounts, favorites, watchlists
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: pass
+      - POSTGRES_MULTIPLE_DATABASES=accounts,favorites,watchlists
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=pass
     ports:
       - 15432:5432
 
@@ -38,10 +38,9 @@ services:
     volumes:
       - ./accounts:/app
     environment:
-      DATABASE_URL: postgresql://accounts:password@postgres/accounts
-      WAIT_HOSTS:
-        postgres:5432
-        # SIGNING_KEY: ${SIGNING_KEY}
+      DATABASE_URL: postgresql://accounts:password@postgres
+      WAIT_HOSTS: postgres:5432
+      SIGNING_KEY: LjdTjfrjPYgUJHNDzM-dKQoBLIfC74fNnR_71DcJcgE
 
   favorites:
     build:
@@ -52,8 +51,9 @@ services:
     volumes:
       - ./favorites:/app
     environment:
-      DATABASE_URL: postgresql://favorites:password@postgres/favorites
+      DATABASE_URL: postgresql://favorites:password@postgres
       WAIT_HOSTS: postgres:5432
+      SIGNING_KEY: LjdTjfrjPYgUJHNDzM-dKQoBLIfC74fNnR_71DcJcgE
 
   watchlists:
     build:
@@ -64,8 +64,9 @@ services:
     volumes:
       - ./watchlists:/app
     environment:
-      DATABASE_URL: postgresql://watchlists:password@postgres/watchlists
+      DATABASE_URL: postgresql://watchlists:password@postgres
       WAIT_HOSTS: postgres:5432
+      SIGNING_KEY: LjdTjfrjPYgUJHNDzM-dKQoBLIfC74fNnR_71DcJcgE
 
   ghi:
     image: node:lts-bullseye
