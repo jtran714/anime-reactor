@@ -32,6 +32,12 @@ class HttpError(BaseModel):
 
 router = APIRouter()
 
+not_authorized = HTTPException(
+    status_code=status.HTTP_401_UNAUTHORIZED,
+    detail="Invalid authentication credentials",
+    headers={"WWW-Authenticate": "Bearer"},
+)
+
 @router.get("/token", response_model=UserToken | None)
 async def get_token(
     request: Request,
@@ -63,10 +69,10 @@ async def create_account(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Cannot create an account with those credentials",
         )
-    return True
-    # form = UserForm(username=info.email, password=info.password)
-    # token = await auth.authenticator.login(response, request, form, account_queries)
-    # return UserToken(account=account, **token.dict())
+    # return True
+    form = UserForm(username=info.email, password=info.password)
+    token = await auth.authenticator.login(response, request, form, account_queries)
+    return UserToken(account=account, **token.dict())
 
 
 
