@@ -13,6 +13,7 @@ from queries.accounts import (
     Error,
     AccountIn,
     AccountOut,
+    AccountOutWithPassword
 )
 
 from jwtdown_fastapi.authentication import Token
@@ -32,11 +33,11 @@ class HttpError(BaseModel):
 
 router = APIRouter()
 
-not_authorized = HTTPException(
-    status_code=status.HTTP_401_UNAUTHORIZED,
-    detail="Invalid authentication credentials",
-    headers={"WWW-Authenticate": "Bearer"},
-)
+# not_authorized = HTTPException(
+#     status_code=status.HTTP_401_UNAUTHORIZED,
+#     detail="Invalid authentication credentials",
+#     headers={"WWW-Authenticate": "Bearer"},
+# )
 
 @router.get("/token", response_model=UserToken | None)
 async def get_token(
@@ -50,9 +51,8 @@ async def get_token(
             "account": account,
         }
 
-
-# @router.post('/api/accounts', response_model=Union[AccountOut, Error])
-@router.post('/api/accounts')
+# @router.post('/api/accounts')
+@router.post('/api/accounts', response_model=Union[UserToken, Error])
 async def create_account(
     info: AccountIn,
     request: Request,
@@ -60,8 +60,6 @@ async def create_account(
     account_queries: AccountQueries = Depends(),
 ):
     hashed_password = auth.authenticator.hash_password(info.password)
-    print(hashed_password)
-    print(f'info {info}')
     try:
         account = account_queries.create(info, hashed_password)
     except DuplicateAccountError:
@@ -70,7 +68,7 @@ async def create_account(
             detail="Cannot create an account with those credentials",
         )
     # return True
-    form = UserForm(username=info.email, password=info.password)
+    form = UserForm(username=info.username, password=info.password)
     token = await auth.authenticator.login(response, request, form, account_queries)
     return UserToken(account=account, **token.dict())
 
@@ -81,6 +79,7 @@ async def create_account(
 def get_account(
     user_id: int,
     response: Response,
+    account: dict = Depends (auth.authenticator.try_get_current_account_data),
     repo: AccountQueries = Depends(),
 ) -> AccountOut:
     account = repo.get_one(user_id)
