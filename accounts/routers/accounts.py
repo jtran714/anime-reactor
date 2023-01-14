@@ -17,7 +17,7 @@ from queries.accounts import (
 )
 
 from jwtdown_fastapi.authentication import Token
-from typing import Union, Optional
+from typing import Union, Optional, List
 from pydantic import BaseModel
 from routers import auth
 
@@ -72,17 +72,28 @@ async def create_account(
     token = await auth.authenticator.login(response, request, form, account_queries)
     return UserToken(account=account, **token.dict())
 
-
-
-
 @router.get('/api/accounts/{user_id}', response_model=Optional[AccountOut])
-def get_account(
+def get_one_account(
     user_id: int,
     response: Response,
-    account: dict = Depends (auth.authenticator.try_get_current_account_data),
     repo: AccountQueries = Depends(),
 ) -> AccountOut:
     account = repo.get_one(user_id)
+    print("!!!!!!!", account)
     if account is None:
         response.status_code = 404
     return account
+
+@router.get('/api/accounts', response_model=Union[List[AccountOut], Error])
+def get_all_accounts(
+    repo: AccountQueries = Depends(),
+):
+    return repo.get_all()
+
+@router.put("/accounts/{user_id}", response_model=Union[AccountOut, Error])
+def update_account(
+    user_id: int,
+    account: AccountIn,
+    repo: AccountQueries = Depends(),
+) -> Union[Error, AccountOut]:
+    return repo.update(user_id, account)

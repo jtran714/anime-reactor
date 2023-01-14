@@ -26,7 +26,7 @@ class AccountOutWithPassword(AccountOut):
     hashed_password: str
 
 class AccountQueries:
-    def get_one(self, username: str) -> Optional[AccountOutWithPassword]:
+    def get_one(self, user_id: int) -> Optional[AccountOutWithPassword]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -39,12 +39,12 @@ class AccountQueries:
                             , username
                             , password
                         FROM users
-                        WHERE username = (%s)
+                        WHERE id = %s
                         """,
-                        [username]
+                        [user_id]
                     )
                     record = result.fetchone()
-                    print("record", record)
+                    print("record!!!!!!!", record)
                     if record is None:
                         return None
                     return self.record_to_account_out(record)
@@ -81,6 +81,34 @@ class AccountQueries:
         except Exception as e:
             print(e)
             return {"message": "Could not get all accounts"}
+
+    def update(self, user_id: int, account: AccountIn) -> Union[AccountOut, Error]:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    db.execute(
+                        """
+                        UPDATE users
+                        SET first_name = %s
+                         , last_name = %s
+                         , email = %s
+                         , username = %s
+                         , password = %s
+                        WHERE id = %s
+                        """,
+                        [
+                            account.first_name,
+                            account.last_name,
+                            account.email,
+                            account.username,
+                            account.password,
+                            user_id
+                        ]
+                    )
+                    return self.account_in_to_out(user_id, account)
+        except Exception as e:
+            print(e)
+            return {"message": "Could not update account."}
 
     def create(self, account: AccountIn, hashed_password: str) -> AccountOutWithPassword:
         try:
