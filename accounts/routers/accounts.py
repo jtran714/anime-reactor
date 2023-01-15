@@ -72,17 +72,21 @@ async def create_account(
     token = await auth.authenticator.login(response, request, form, account_queries)
     return UserToken(account=account, **token.dict())
 
-@router.get('/api/accounts/{user_id}', response_model=Optional[AccountOut])
-def get_one_account(
-    user_id: int,
-    response: Response,
-    repo: AccountQueries = Depends(),
-) -> AccountOut:
-    account = repo.get_one(user_id)
-    print("!!!!!!!", account)
-    if account is None:
-        response.status_code = 404
-    return account
+# @router.get('/api/accounts/{user_id}', response_model=Optional[AccountOut])
+# def get_one_account(
+#     user_id: int,
+#     response: Response,
+#     repo: AccountQueries = Depends(),
+# ) -> AccountOut:
+#     account = repo.get_by_id(user_id)
+#     print("!!!!!!!", account)
+#     if account is None:
+#         response.status_code = 404
+#     return account
+
+@router.get("/api/accounts/{user_id}", response_model=AccountOut)
+def get_account_by_id(user_id: int, queries: AccountQueries = Depends()):
+    return queries.get_by_id(user_id)
 
 @router.get('/api/accounts', response_model=Union[List[AccountOut], Error])
 def get_all_accounts(
