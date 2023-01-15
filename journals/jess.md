@@ -89,7 +89,7 @@ Today, I worked on:
 
 Day 6 on the same bug. It was like a ray of sunshine when the instructor went over how to link Mongo databases in class today and shared his code for reference. The three of us got together after lunch and started to analyze the reference code and eventually changed our code to the same format. However, we kept getting an error when we tried to make a post request to create a user. Five hours into it, and we didn't even think to test the repo that we were using as a reference. We ran that project to test it, and turns out the post request for that project returns a 500 error. At this point, my team is exhausted and devastated, and we have decided to scrap our entire project and start fresh with postgres. We only have roughly two weeks left, and we can't spare another day on this.
 
-## January 11, 2022
+## January 12, 2022
 
 Today, I worked on:
 
@@ -100,7 +100,7 @@ Today, I worked on:
 
 Today was really productive. I was able to set up the Docker file by myself and PgAdmin, and I showed my team how to log onto PgAdmin. I was also able to set up the migrations file for the account services, and there were no hiccups along the way. (Good thing I did the winter break study guide!) I also set up the account backend for creating users and login. One current blocker from today is that my auto-login after sign up sometimes returns a 200 and an access token and sometimes a 401. I suspect that it has to do the with unique parameters (username and email). The biggest highlight of today was BeeKeeper! Much thanks to Matt for showing my team how to use it. I find it a lot easier to use compared to PgAdmin.
 
-## January 12, 2022
+## January 13, 2022
 
 Today, I worked on:
 
@@ -109,3 +109,14 @@ Today, I worked on:
 - Resolved bug from auto login upon sign up
 
 I realized that my team's progress is lagging behind many teams, so I tried to create a goals list for the long weekend. Everyone responded, and we agreed to work on the project together over the weekend. I also created an organization system to help my team track our progress better. I was also able to debug my error for sign-up. The user will be logged in immediately after they successfully create an account. The silly mistake I made was setting the username to the email in my routers when they're each its own thing.
+
+## January 14, 2022
+
+Today, I worked on:
+
+- Fixed a new bug for login.
+- Created endpoints for edit accounts.
+- Created endpoints for account detail view and account list view
+- Created endpoint for delete accounts
+
+Today, Tommy, Jordan, Chengyun, and I worked on Discord. Tommy and I had a small meeting; since he is having difficulties doing backend for account editing, we have decided to swap tasks. I will now be doing all of the backends for accounts, including authentication, and he will get started on the frontend. Since I am very close to getting all of my tasks complete, I plan to watch the lecture recordings from this week in the next couple of days. While my teammates work on their tasks, I can go ahead and set up deployment and plan merge requests. That way when they finish their part, it will be easier to wrap things up. Since my teammates' microservices are dependent on my accounts service, I prioritized getting the backend endpoints done first so that they can test their features. Hopefully when we get back on Tuesday, my teammates who are in charge of front end will have something to show us.

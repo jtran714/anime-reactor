@@ -141,6 +141,22 @@ class AccountQueries:
             print(e)
             return {"message": "Could not update account."}
 
+    def delete(self, user_id: int):
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    db.execute(
+                        """
+                        DELETE FROM users
+                        WHERE id = %s
+                        """,
+                        [user_id],
+                    )
+                    return True
+        except Exception as e:
+            print(e)
+            return {"message": "Could not delete account."}
+
     def create(self, account: AccountIn, hashed_password: str) -> AccountOutWithPassword:
         try:
             with pool.connection() as conn:

@@ -94,10 +94,14 @@ def get_all_accounts(
 ):
     return repo.get_all()
 
-@router.put("/accounts/{user_id}", response_model=Union[AccountOut, Error])
+@router.put("/api/accounts/{user_id}", response_model=Union[AccountOut, Error])
 def update_account(
     user_id: int,
     account: AccountIn,
     repo: AccountQueries = Depends(),
 ) -> Union[Error, AccountOut]:
     return repo.update(user_id, account)
+
+@router.delete("/api/accounts/{user_id}", response_model=bool)
+def delete_user(user_id: int, queries: AccountQueries = Depends()):
+    return queries.delete(user_id)
