@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import { useToken } from "./auth";
 import { useNavigate } from "react-router-dom";
 
-function SignUpForm() {
+function SignupForm() {
   const navigate = useNavigate();
   const [, , , signup] = useToken();
   const [email, setEmail] = useState("");
@@ -11,13 +11,17 @@ function SignUpForm() {
   const [invalid, setInvalid] = useState(false);
 
   const clearState = () => {
+    setFirstName("");
+    setLastName("");
+    setUsername("");
     setEmail("");
     setPassword("");
+    setConfirmPassword("");
   };
 
   async function handleSubmit(e) {
     e.preventDefault();
-    const successful = await signup(email, password);
+    const successful = await signup(firstname, lastname, username, email, password, confirmpassword);
     if (!successful) {
       setInvalid(true);
     } else {
@@ -69,7 +73,7 @@ function SignUpForm() {
               className="alert alert-danger mb-0 p-4 mt-4"
               id="invalid-message"
             >
-            Sorry! This email is already in use! Please try another!
+              Email in use! Please choose another!
             </div>
           )}
         </div>
@@ -78,5 +82,5 @@ function SignUpForm() {
   );
 }
 
-export default SignUpForm;
+export default SignupForm;
 
