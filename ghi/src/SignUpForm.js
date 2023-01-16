@@ -1,14 +1,16 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
-import { useToken } from "./auth";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "./auth";
 
 function SignupForm() {
   const navigate = useNavigate();
-  const [, , , signup] = useToken();
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [invalid, setInvalid] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const { signup } = useAuth();
 
   const clearState = () => {
     setFirstName("");
@@ -16,14 +18,15 @@ function SignupForm() {
     setUsername("");
     setEmail("");
     setPassword("");
-    setConfirmPassword("");
+    setSubmitted(false);
   };
 
   async function handleSubmit(e) {
     e.preventDefault();
-    const successful = await signup(firstname, lastname, username, email, password, confirmpassword);
+    setSubmitted(true);
+    const successful = await signup(firstName, lastName, username, email, password);
     if (!successful) {
-      setInvalid(true);
+      alert("Could not sign up. Please try again");
     } else {
       clearState();
       navigate("/");
@@ -31,56 +34,57 @@ function SignupForm() {
   }
 
   return (
-    <div className="row">
-      <div className="offset-3 col-6">
-        <div className="shadow p-4 mt-4">
-          <h1 className="text-left display-6">Create account</h1>
-          <div className="text-left lead mb-3">
-            Already have an account?
-            <NavLink to="/login"> Login</NavLink>
-          </div>
-          <form id="create-appointment-form" onSubmit={handleSubmit}>
-            <div className="form-floating mb-3">
-              <input
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="name@example.com"
-                required
-                type="text"
-                name="email"
-                id="email"
-                className="form-control"
-              />
-              <label htmlFor="email">Email</label>
-            </div>
-            <div className="form-floating mb-3">
-              <input
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="password"
-                required
-                type="password"
-                name="password"
-                id="password"
-                className="form-control"
-              />
-              <label htmlFor="password">Password</label>
-            </div>
-            <div className="col text-left">
-              <button className="btn btn-primary">Create</button>
-            </div>
-          </form>
-          {invalid && (
-            <div
-              className="alert alert-danger mb-0 p-4 mt-4"
-              id="invalid-message"
-            >
-              Email in use! Please choose another!
-            </div>
-          )}
-        </div>
-      </div>
-    </div>
+    <form onSubmit={handleSubmit}>
+      <label>
+        First Name:
+        <input
+          type="text"
+          value={firstName}
+          onChange={e => setFirstName(e.target.value)}
+        />
+      </label>
+      <br />
+      <label>
+        Last Name:
+        <input
+          type="text"
+          value={lastName}
+          onChange={e => setLastName(e.target.value)}
+        />
+      </label>
+      <br />
+      <label>
+        Username:
+        <input
+          type="text"
+          value={username}
+          onChange={e => setUsername(e.target.value)}
+        />
+      </label>
+      <br />
+      <label>
+        Email:
+        <input
+          type="email"
+          value={email}
+          onChange={e => setEmail(e.target.value)}
+        />
+      </label>
+      <br />
+      <label>
+        Password:
+        <input
+          type="password"
+          value={password}
+          onChange={e => setPassword(e.target.value)}
+        />
+      </label>
+      <br />
+      <button type="submit" disabled={submitted}>
+        Sign up
+      </button>
+    </form>
   );
 }
 
 export default SignupForm;
-
