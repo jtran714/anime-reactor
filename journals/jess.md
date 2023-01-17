@@ -120,3 +120,21 @@ Today, I worked on:
 - Created endpoint for delete accounts
 
 Today, Tommy, Jordan, Chengyun, and I worked on Discord. Tommy and I had a small meeting; since he is having difficulties doing backend for account editing, we have decided to swap tasks. I will now be doing all of the backends for accounts, including authentication, and he will get started on the frontend. Since I am very close to getting all of my tasks complete, I plan to watch the lecture recordings from this week in the next couple of days. While my teammates work on their tasks, I can go ahead and set up deployment and plan merge requests. That way when they finish their part, it will be easier to wrap things up. Since my teammates' microservices are dependent on my accounts service, I prioritized getting the backend endpoints done first so that they can test their features. Hopefully when we get back on Tuesday, my teammates who are in charge of front end will have something to show us.
+
+## January 15, 2022
+
+Today, I worked on:
+
+- Helped my teammates (Jordan and Chengyun debug)
+- Watched CI/CD lecture recording
+
+Today, Jordan, Chengyun, and I worked on Discord together. We were mostly trying to debug and figure out how to link the databases. I was able to make the connection now between routers and queries, and I can better understand what variables are being passed in and out. (I was able to debug one of Jordan's issues today by checking the variables!) Matt would be so proud! I have also tested my endpoints again just to make sure that they are still all functional. And I reviewed the CI/CD material on Learn. Turns out half of the reading is not even relevant because it's focused on Django and Render.com.
+
+## January 16, 2022
+
+Today, I worked on:
+
+- Set up CapRover for my team
+- Watched recordings on writing tests
+
+Today, I was on Discord for half the day in case my anyone on my team needed help. Since everyone is still doing their parts of the code, I set up CapRover in the mean time. Unsure how much progress everyone is making, but I let everyone know that I would be online if anyone got stuck. I also re-watched the recordings on writing tests and will try to write some tests so that we can start merging tomorrow. Since our backend is pretty much done, we are just waiting on frontend now.

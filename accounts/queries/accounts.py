@@ -70,7 +70,7 @@ class AccountQueries:
                         [user_id]
                     )
                     record = result.fetchone()
-                    print("record!!!!!!!", record)
+
                     if record is None:
                         return None
                     return self.record_to_account_out(record)
@@ -132,7 +132,7 @@ class AccountQueries:
                             user_id
                         ],
                     )
-                    print(account, "!!!!!!")
+
                     # return self.account_in_to_out(user_id, account)
                     old_data = account.dict()
                     print(old_data)
