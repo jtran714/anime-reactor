@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "./auth";
+import { useToken } from "./auth";
 
-function SignupForm() {
+function SignUpForm() {
   const navigate = useNavigate();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -87,4 +87,4 @@ function SignupForm() {
   );
 }
 
-export default SignupForm;
+export default SignUpForm;

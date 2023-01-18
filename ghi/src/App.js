@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
 import Construct from "./Construct.js";
 import ErrorNotification from "./ErrorNotification";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Route } from "react-router-dom";
 import Nav from "./Nav";
 import SignUpForm from "./SignUpForm.js";
-import EditAccount from "./AccountEdit.js";
-import LoginForm from "./LoginForm.js";
 import "./App.css";
 
 
@@ -40,8 +38,6 @@ function App() {
         <Nav />
         <div className="container">
           <Routes>
-            <Route path="/" element={<SignUpForm />} />
-                        <Route path="/SignUpForm" element={<SignUpForm />} />
             <Route path="/SignUpForm" element={<SignUpForm />} />
           </Routes>
         </div>
