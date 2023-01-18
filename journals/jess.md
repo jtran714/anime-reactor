@@ -137,4 +137,12 @@ Today, I worked on:
 - Set up CapRover for my team
 - Watched recordings on writing tests
 
-Today, I was on Discord for half the day in case my anyone on my team needed help. Since everyone is still doing their parts of the code, I set up CapRover in the mean time. Unsure how much progress everyone is making, but I let everyone know that I would be online if anyone got stuck. I also re-watched the recordings on writing tests and will try to write some tests so that we can start merging tomorrow. Since our backend is pretty much done, we are just waiting on frontend now.
+Today, I was on Discord for half the day in case anyone on my team needed help. Since everyone is still doing their parts of the code, I set up CapRover in the mean time. Unsure how much progress everyone is making, but I let everyone know that I would be online if anyone got stuck. I also re-watched the recordings on writing tests and will try to write some tests so that we can start merging tomorrow. Since our backend is pretty much done, we are just waiting on frontend now.
+
+## January 17, 2022:
+
+Today, I worked on:
+
+- Frontend Login page
+
+Today, Jordan and I had to meet with Andrew and Sabrina to give them some updates about our group project. Our backends are basically complete. We will need to work on the front-end. It seems that Tommy is having trouble working with accounts front-end, but he is also not sharing his bugs and haven't tested them. Because I don't want Jordan and Chengyun to have to wait for him, I created a login page for them to test their features. Andrew specified that we should not do Tommy's portion, so I will go ahead and leave the rest to him. Tomorrow, I will test my backend endpoints one more time and submit a merge request if everything seems to be working.

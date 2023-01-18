@@ -46,7 +46,7 @@ export const AuthContext = createContext({
   token: null,
   setToken: () => null,
   user: null,
-  serUser: () => null,
+  setUser: () => null,
   isLoggedIn: null,
   setIsLoggedIn: () => null,
 });
