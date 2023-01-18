@@ -1,11 +1,19 @@
 import { useEffect, useState } from "react";
 import Construct from "./Construct.js";
 import ErrorNotification from "./ErrorNotification";
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Nav from "./Nav";
-import SignUpForm from "./SignUpForm.js";
 import "./App.css";
+import SignUpForm from "./SignUpForm.js";
+import { AuthProvider, useToken } from "./auth";
 
+const domain = /https:\/\/[^/]+/;
+const basename = process.env.PUBLIC_URL.replace(domain, "");
+
+function GetToken() {
+  useToken();
+  return null;
+}
 
 function App() {
   // const [launch_info, setLaunchInfo] = useState([]);
@@ -30,19 +38,18 @@ function App() {
   //   getData();
   // }, []);
 
-  return (
-    <div>
-      {/* <ErrorNotification error={error} />
-      <Construct info={launch_info} /> */}
-      <BrowserRouter>
+ return (
+    <BrowserRouter basename={basename}>
+      <AuthProvider>
+        <GetToken />
         <Nav />
         <div className="container">
           <Routes>
-            <Route path="/SignUpForm" element={<SignUpForm />} />
+            <Route path="/SignUpForm/" element={<SignUpForm />} />
           </Routes>
         </div>
-      </BrowserRouter>
-    </div>
+      </AuthProvider>
+    </BrowserRouter>
   );
 }
 

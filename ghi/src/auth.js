@@ -103,7 +103,7 @@ export function useToken() {
   }
 
   async function signup(email, password) {
-    const url = `${process.env.REACT_APP_ACCOUNTS}/gathering/accounts`;
+    const url = `${process.env.REACT_APP_ACCOUNTS}/accounts`;
     const response = await fetch(url, {
       method: "post",
       body: JSON.stringify({
@@ -123,4 +123,3 @@ export function useToken() {
 
   return [token, login, logout, signup];
 }
-
