@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useToken } from "./auth";
 
 function SignUpForm() {
   const navigate = useNavigate();
