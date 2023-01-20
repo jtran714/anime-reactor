@@ -1,11 +1,12 @@
 import { Routes, Route, BrowserRouter } from "react-router-dom";
-import { useEffect, useState } from "react";
-import Construct from "./Construct.js";
-import ErrorNotification from "./ErrorNotification";
+// import { useEffect, useState } from "react";
+// import Construct from "./Construct.js";
+// import ErrorNotification from "./ErrorNotification";
 import "./App.css";
 import LoginForm from "./LoginForm";
 import MainPage from "./MainPage";
 import { useToken, AuthProvider, useAuthContext } from "./auth.js";
+import Nav from "./Nav";
 
 function GetToken() {
   useToken();
@@ -20,6 +21,7 @@ function App() {
       <BrowserRouter>
         <AuthProvider>
           <GetToken />
+          <Nav />
           <Routes>
             <Route path="/" element={<MainPage />} />
             <Route path="login/" element={<LoginForm />} />

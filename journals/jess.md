@@ -146,3 +146,12 @@ Today, I worked on:
 - Frontend Login page
 
 Today, Jordan and I had to meet with Andrew and Sabrina to give them some updates about our group project. Our backends are basically complete. We will need to work on the front-end. It seems that Tommy is having trouble working with accounts front-end, but he is also not sharing his bugs and haven't tested them. Because I don't want Jordan and Chengyun to have to wait for him, I created a login page for them to test their features. Andrew specified that we should not do Tommy's portion, so I will go ahead and leave the rest to him. Tomorrow, I will test my backend endpoints one more time and submit a merge request if everything seems to be working.
+
+## January 18, 2022:
+
+Today, I worked on:
+
+- Frontend Auth
+- Debugged for Jordan's frontend
+
+Today, I wrote the frontend auth and tested it with the login form. Since Tommy was having struggles coming up with the auth, and Jordan and Chengyun need the frontend auth set up to test their own features, I decided to take over that story to alleviate his load. I was able to successfully incorporate that with login successfully; I could see the cookie being generated. I then gave my code to Jordan to test his code. I was able to help him debug and solve 4 errors! We then tried to use Andrew's snippet to grab the user_id from the token. With Carter and Matt's help, we were still stuck because we were not supposed to have an async function inside a useeffect. Tomorrow, we will continue to tackle that so that we can test his code. We will also merge my code and look into CapRover.
