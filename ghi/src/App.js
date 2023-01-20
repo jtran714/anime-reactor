@@ -1,65 +1,34 @@
-import { Routes, Route, BrowserRouter } from "react-router-dom";
-// import { useEffect, useState } from "react";
-// import Construct from "./Construct.js";
-// import ErrorNotification from "./ErrorNotification";
-import "./App.css";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Favorites from "./Favorites";
+import FavoriteForm from "./FavoriteForm";
+// import Nav from "./Nav";
 import LoginForm from "./LoginForm";
 import MainPage from "./MainPage";
-import { useToken, AuthProvider, useAuthContext } from "./auth.js";
-import Nav from "./Nav";
+import { useToken, AuthContext, AuthProvider, useAuthContext } from "./auth";
 
 function GetToken() {
   useToken();
   return null;
 }
 
-function App() {
+export default function App() {
   const { token } = useAuthContext();
   console.log(token);
   return (
-    <>
+    <div>
       <BrowserRouter>
         <AuthProvider>
           <GetToken />
-          <Nav />
-          <Routes>
-            <Route path="/" element={<MainPage />} />
-            <Route path="login/" element={<LoginForm />} />
-          </Routes>
+          <div>
+            <Routes>
+              <Route path="/" element={<MainPage />} />
+              <Route path="login/" element={<LoginForm />} />
+              <Route path="favorites/" element={<Favorites />} />
+              <Route path="favorites/new" element={<FavoriteForm />} />
+            </Routes>
+          </div>
         </AuthProvider>
       </BrowserRouter>
-    </>
+    </div>
   );
 }
-
-export default App;
-// function App() {
-//   const [launch_info, setLaunchInfo] = useState([]);
-//   const [error, setError] = useState(null);
-
-//   useEffect(() => {
-//     async function getData() {
-//       let url = `${process.env.REACT_APP_ACCOUNTS_API_HOST}/api/launch-details`;
-//       console.log("fastapi url: ", url);
-//       let response = await fetch(url);
-//       console.log("------- hello? -------");
-//       let data = await response.json();
-
-//       if (response.ok) {
-//         console.log("got launch data!");
-//         setLaunchInfo(data.launch_details);
-//       } else {
-//         console.log("drat! something happened");
-//         setError(data.message);
-//       }
-//     }
-//     getData();
-//   }, []);
-
-//   return (
-//     <div>
-//       <ErrorNotification error={error} />
-//       <Construct info={launch_info} />
-//     </div>
-//   );
-// }
