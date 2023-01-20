@@ -10,7 +10,6 @@
 //   const [imgUrl, setImgUrl] = useState("");
 //   const navigate = useNavigate();
 
-
 //   useEffect(() => {
 //     async function decodeToken() {
 //       const token = await getTokenInternal();
@@ -40,7 +39,6 @@
 //     }
 //     decodeToken();
 //   });
-
 
 //   const handleSubmit = async (event) => {
 //     event.preventDefault();
@@ -141,51 +139,65 @@ import { useState, useEffect } from "react";
 import { useAuthContext } from "./auth";
 
 export default function FavoriteForm() {
-  const [decodedUser, setDecodedUser] = useState();
-  const { token, login, user } = useAuthContext();
+  const [decodedUser, setDecodedUser] = useState("");
+  const { token } = useAuthContext();
   // const [userID, setUserID] = useState("");
+  // console.log(token, "NOOOOOOOOOO");
   const [animeTitle, setAnimeTitle] = useState("");
   const [date, setDate] = useState("");
   const [imgUrl, setImgUrl] = useState("");
 
+  const [jwt, setJwt] = useState(null);
+
+  function parseJwt(token) {
+    var base64Url = token.split(".")[1];
+    var base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+    var jsonPayload = decodeURIComponent(
+      window
+        .atob(base64)
+        .split("")
+        .map(function (c) {
+          return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+        })
+        .join("")
+    );
+    const variable = JSON.parse(jsonPayload);
+    setDecodedUser(variable.account.id);
+  }
+
   useEffect(() => {
-    function parseJwt(token) {
-      var base64Url = token.split(".")[1];
-      var base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
-      var jsonPayload = decodeURIComponent(
-        window
-          .atob(base64)
-          .split("")
-          .map(function (c) {
-            return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
-          })
-          .join("")
-      );
+    fetch(token).then((response) => {
+      if (typeof response.token !== "object") {
+        setJwt(token);
+        if (jwt !== null) {
+          parseJwt(jwt);
+          // console.log(decodedToken, "!!!!!!!!!");
+        }
+      }
+    });
 
-      return JSON.parse(jsonPayload);
-    }
-    async function handleToken() {
-      return parseJwt(token);
-    }
-    
-    if (token) {
-      const decodedToken = handleToken();
-      console.log(decodedToken, "KLASJDF;LKSAJFL;KSAJFL;SAKJFSL;A");
-      setDecodedUser(decodedToken.account);
-    }
-  });
+    // async function handleToken() {
+    //   let decodedToken1 = parseJwt(token);
+    //   return decodedToken1;
+    // }
+    // if (token) {
+    //   let decodedToken = parseJwt(token);
 
+    //   setDecodedUser(decodedToken.account);
+    //   console.log(decodedUser, "!!!!!!!!!!");
+    // }
+  }, [token, jwt]);
+  console.log(decodedUser, "???????????");
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log("ASDASDF", decodedUser);
     const newFavorite = {
-      user_id: decodedUser.id,
+      user_id: decodedUser,
       animeTitle,
       date,
       imgUrl,
     };
 
-    const favoriteUrl = `${process.env.REACT_APP_FAVORITES_API_HOST}/favorites/${decodedUser.id}`;
+    const favoriteUrl = `${process.env.REACT_APP_FAVORITES_API_HOST}/favorites/`;
     const fetchConfig = {
       method: "post",
       body: JSON.stringify(newFavorite),
@@ -193,12 +205,13 @@ export default function FavoriteForm() {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
+      credentials: "include",
     };
 
     const response = await fetch(favoriteUrl, fetchConfig);
-    if (response.ok) {
+    if (!response.ok) {
       const data = await response.json();
-      console.log(data);
+      // console.log(data);
       // setUserID("");
       setAnimeTitle("");
       setDate("");

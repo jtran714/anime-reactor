@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Favorites from "./Favorites";
 import FavoriteForm from "./FavoriteForm";
-// import Nav from "./Nav";
+import Nav from "./Nav";
 import LoginForm from "./LoginForm";
 import MainPage from "./MainPage";
 import { useToken, AuthContext, AuthProvider, useAuthContext } from "./auth";
@@ -19,6 +19,7 @@ export default function App() {
       <BrowserRouter>
         <AuthProvider>
           <GetToken />
+          <Nav />
           <div>
             <Routes>
               <Route path="/" element={<MainPage />} />

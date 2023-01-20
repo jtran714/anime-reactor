@@ -138,18 +138,3 @@ export function useToken() {
   }
   return [token, login, user];
 }
-
-    if (response.ok) {
-      const token = await getTokenInternal();
-      setToken(token);
-      setUser(user);
-      setIsLoggedIn(true);
-      navigate("/");
-      return;
-    }
-    let error = await response.json();
-    setIsLoggedIn(false);
-    return handleErrorMessage(error);
-  }
-  return [token, login, user];
-}
